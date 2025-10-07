@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  latex-resume:
+    build: .
+    container_name: latex-resume-viewer
+    ports:
+      - "3000:3000"
+    volumes:
+      # Mount resume.tex for live editing (optional)
+      - ./resume.tex:/app/resume.tex
+      # Persist generated PDFs
+      - ./public:/app/public
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production

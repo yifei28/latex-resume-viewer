@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaTeX Resume Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        .btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #95a5a6;
+        }
+
+        .status-indicator.compiling {
+            background: #f39c12;
+            animation: pulse 1s infinite;
+        }
+
+        .status-indicator.success {
+            background: #27ae60;
+        }
+
+        .status-indicator.error {
+            background: #e74c3c;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .main-content {
+            display: flex;
+            height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            width: 300px;
+            background: white;
+            border-right: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            background: #f8f9fa;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .info-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-section h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .info-item {
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #7f8c8d;
+        }
+
+        .error-message {
+            background: #fcf8e3;
+            border: 1px solid #faebcc;
+            border-radius: 4px;
+            padding: 0.75rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: #8a6d3b;
+        }
+
+        .viewer-container {
+            flex: 1;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .viewer-toolbar {
+            padding: 0.5rem 1rem;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .zoom-controls {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .zoom-btn {
+            background: none;
+            border: 1px solid #ddd;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .zoom-level {
+            font-size: 0.9rem;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .pdf-viewer {
+            flex: 1;
+            overflow: auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 2rem;
+        }
+
+        .pdf-container {
+            max-width: 100%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        #pdfCanvas {
+            display: block;
+            border: 1px solid #ddd;
+        }
+
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #7f8c8d;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .no-pdf {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📄 LaTeX Resume Viewer</h1>
+        <div class="controls">
+            <div class="status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">Ready</span>
+            </div>
+            <button class="btn" id="compileBtn" onclick="compileResume()">Compile</button>
+            <button class="btn" id="refreshBtn" onclick="refreshPDF()">Refresh</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Resume Details</h2>
+            </div>
+            <div class="sidebar-content">
+                <div class="info-section">
+                    <h3>Compilation Status</h3>
+                    <div class="info-item">
+                        <span class="info-label">Method:</span>
+                        <span id="compilationMethod">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Last Compiled:</span>
+                        <span id="lastCompiled">Never</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Auto-watch:</span>
+                        <span>Enabled</span>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>File Information</h3>
+                    <div class="info-item">
+                        <span class="info-label">Source:</span>
+                        <span>resume.tex</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Output:</span>
+                        <span>resume.pdf</span>
+                    </div>
+                </div>
+
+                <div id="errorSection" class="info-section" style="display: none;">
+                    <h3>Compilation Error</h3>
+                    <div class="error-message" id="errorMessage"></div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Actions</h3>
+                    <button class="btn" onclick="downloadPDF()" style="width: 100%; margin-bottom: 0.5rem;">
+                        Download PDF
+                    </button>
+                    <button class="btn" onclick="openInNewTab()" style="width: 100%;">
+                        Open in New Tab
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="viewer-container">
+            <div class="viewer-toolbar">
+                <div class="zoom-controls">
+                    <button class="zoom-btn" onclick="zoomOut()">−</button>
+                    <span class="zoom-level" id="zoomLevel">100%</span>
+                    <button class="zoom-btn" onclick="zoomIn()">+</button>
+                </div>
+                <button class="btn" onclick="fitToWidth()">Fit Width</button>
+                <button class="btn" onclick="actualSize()">Actual Size</button>
+            </div>
+
+            <div class="pdf-viewer" id="pdfViewer">
+                <div class="loading" id="loadingIndicator">
+                    <div class="loading-spinner"></div>
+                    <p>Loading PDF...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        let pdfDoc = null;
+        let pageNum = 1;
+        let pageRendering = false;
+        let pageNumPending = null;
+        let scale = 1.2;
+        const canvas = document.createElement('canvas');
+        canvas.id = 'pdfCanvas';
+        
+        // Initialize PDF.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        function updateStatus(status) {
+            const indicator = document.getElementById('statusIndicator');
+            const text = document.getElementById('statusText');
+            const compileBtn = document.getElementById('compileBtn');
+
+            indicator.className = 'status-indicator';
+            
+            if (status.isCompiling) {
+                indicator.classList.add('compiling');
+                text.textContent = 'Compiling...';
+                compileBtn.disabled = true;
+            } else if (status.error) {
+                indicator.classList.add('error');
+                text.textContent = 'Error';
+                compileBtn.disabled = false;
+                showError(status.error);
+            } else if (status.lastCompiled) {
+                indicator.classList.add('success');
+                text.textContent = 'Ready';
+                compileBtn.disabled = false;
+                hideError();
+            } else {
+                text.textContent = 'Ready';
+                compileBtn.disabled = false;
+            }
+
+            // Update sidebar info
+            document.getElementById('compilationMethod').textContent = status.method || '-';
+            document.getElementById('lastCompiled').textContent = status.lastCompiled 
+                ? new Date(status.lastCompiled).toLocaleString()
+                : 'Never';
+        }
+
+        function showError(errorMessage) {
+            document.getElementById('errorSection').style.display = 'block';
+            document.getElementById('errorMessage').textContent = errorMessage;
+        }
+
+        function hideError() {
+            document.getElementById('errorSection').style.display = 'none';
+        }
+
+        async function compileResume() {
+            try {
+                const response = await fetch('/api/compile', { method: 'POST' });
+                const result = await response.json();
+                
+                if (result.success) {
+                    await loadPDF();
+                }
+                
+                updateStatus(result);
+            } catch (error) {
+                console.error('Compilation failed:', error);
+                updateStatus({ error: error.message, isCompiling: false });
+            }
+        }
+
+        async function refreshPDF() {
+            await loadPDF();
+        }
+
+        async function loadPDF() {
+            const viewer = document.getElementById('pdfViewer');
+            const loading = document.getElementById('loadingIndicator');
+            
+            loading.style.display = 'flex';
+            
+            try {
+                const response = await fetch('/api/pdf');
+                if (!response.ok) {
+                    throw new Error('PDF not found');
+                }
+                
+                const arrayBuffer = await response.arrayBuffer();
+                const loadingTask = pdfjsLib.getDocument(arrayBuffer);
+                pdfDoc = await loadingTask.promise;
+                
+                viewer.innerHTML = '';
+                viewer.appendChild(canvas);
+                
+                await renderPage(pageNum);
+                
+            } catch (error) {
+                console.error('Error loading PDF:', error);
+                viewer.innerHTML = '<div class="no-pdf"><p>📄 No PDF available. Please compile first.</p></div>';
+            }
+        }
+
+        async function renderPage(num) {
+            pageRendering = true;
+            const page = await pdfDoc.getPage(num);
+            const viewport = page.getViewport({ scale: scale });
+            const context = canvas.getContext('2d');
+            
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            const renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            
+            const renderTask = page.render(renderContext);
+            await renderTask.promise;
+            pageRendering = false;
+            
+            if (pageNumPending !== null) {
+                renderPage(pageNumPending);
+                pageNumPending = null;
+            }
+        }
+
+        function zoomIn() {
+            scale = Math.min(scale * 1.2, 3.0);
+            updateZoomLevel();
+            if (pdfDoc) renderPage(pageNum);
+        }
+
+        function zoomOut() {
+            scale = Math.max(scale / 1.2, 0.5);
+            updateZoomLevel();
+            if (pdfDoc) renderPage(pageNum);
+        }
+
+        function fitToWidth() {
+            if (pdfDoc) {
+                const container = document.getElementById('pdfViewer');
+                const containerWidth = container.clientWidth - 40; // padding
+                pdfDoc.getPage(1).then(page => {
+                    const viewport = page.getViewport({ scale: 1 });
+                    scale = containerWidth / viewport.width;
+                    updateZoomLevel();
+                    renderPage(pageNum);
+                });
+            }
+        }
+
+        function actualSize() {
+            scale = 1.0;
+            updateZoomLevel();
+            if (pdfDoc) renderPage(pageNum);
+        }
+
+        function updateZoomLevel() {
+            document.getElementById('zoomLevel').textContent = Math.round(scale * 100) + '%';
+        }
+
+        function downloadPDF() {
+            window.open('/api/pdf', '_blank');
+        }
+
+        function openInNewTab() {
+            window.open('/api/pdf', '_blank');
+        }
+
+        // Check status periodically
+        async function checkStatus() {
+            try {
+                const response = await fetch('/api/status');
+                const status = await response.json();
+                updateStatus(status);
+            } catch (error) {
+                console.error('Failed to check status:', error);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            await checkStatus();
+            await loadPDF();
+            
+            // Check status every 2 seconds
+            setInterval(checkStatus, 2000);
+        });
+
+        updateZoomLevel();
+    </script>
+</body>
+</html>

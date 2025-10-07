@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+npm-debug.log
+package-lock.json
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Generated PDFs (users will generate their own)
+*.pdf
+
+# System files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Local configuration
+.claude/
+.env
+
+# Public directory (generated content)
+public/*.pdf

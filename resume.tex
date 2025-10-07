@@ -1,0 +1,143 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fontawesome}
+\usepackage{xcolor}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\footskip}{3.60004pt} % Fixes fancyhdr warning
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.0in}
+\addtolength{\topmargin}{-0.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-5pt}\raggedright\Large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{1pt}]
+
+% Custom commands for styling
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+\newcommand{\resumeSubheading}[4]{
+  \textbf{#1} \hfill \small{\textbf{#2}} \\
+  \textit{\small#3} \hfill \small{\textit{#4}}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+  \textbf{\small#1} \hfill \small{#2}
+  \vspace{4pt}
+}
+
+\newcommand{\resumeSubheadingItalic}[4]{
+  \textbf{#1} \hfill \small{\textit{#2}} \\
+  \textit{\small#3} \hfill \small{\textit{#4}}
+  \vspace{4pt}
+}
+
+\newlist{resumeItemList}{itemize}{1}
+\setlist[resumeItemList]{
+  leftmargin=0.15in,
+  label=$\bullet$,
+  parsep=0pt,
+  itemsep=1.5pt,
+  topsep=2pt,
+}
+
+\begin{document}
+
+%----------HEADER----------
+\begin{center}
+  {\Large \textbf{Your Name}} \\ \vspace{2pt}
+  \small \href{mailto:your.email@example.com}{your.email@example.com} $|$ +1-XXX-XXX-XXXX $|$ \href{https://github.com/yourusername}{github.com/yourusername} $|$ City, State, ZIP
+\end{center}
+
+%-----------EDUCATION-----------
+\section{Education}
+\vspace{-5pt}
+\begin{resumeItemList}
+  \item \resumeSubheading
+  {Your University}{City, State}
+  {B.S. in Computer Science}{August 20XX - May 20XX}
+  \vspace{2pt}
+  \item \small{\textbf{GPA:} X.X/4.0}
+  \item \small{\textbf{Relevant Coursework:} Data Structures, Algorithms, Database Systems, Operating Systems, Computer Networks, Software Engineering.}
+\end{resumeItemList}
+
+%-----------SKILLS-----------
+\section{Skills}
+\vspace{-5pt}
+\begin{resumeItemList}
+  \item \small{\textbf{Programming Languages:} Python, Java, JavaScript, C++, Go}
+  \item \small{\textbf{Technologies:} Docker, React, Node.js, SpringBoot, PostgreSQL, MongoDB, Kubernetes, Git, CI/CD}
+  \item \small{\textbf{Spoken Languages:} English}
+\end{resumeItemList}
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+\vspace{-5pt}
+\resumeSubheadingItalic
+{Company Name | Software Engineer Intern}{City, Country}
+{Month 20XX - Month 20XX}{}
+\begin{resumeItemList}
+  \resumeItem{Developed and maintained backend services using modern frameworks and technologies.}
+  \resumeItem{Collaborated with cross-functional teams to design and implement new features.}
+  \resumeItem{Optimized system performance through code analysis and targeted improvements.}
+\end{resumeItemList}
+
+%-----------PROJECTS-----------
+\section{Projects}
+\vspace{-5pt}
+
+\resumeProjectHeading
+{Full-Stack Web Application}{Month 20XX - Month 20XX}
+\begin{resumeItemList}
+  \resumeItem{Designed and developed a full-stack web application with user authentication and database integration.}
+  \resumeItem{Built responsive frontend using modern JavaScript frameworks and implemented RESTful API backend.}
+  \resumeItem{Deployed application using Docker containers and set up CI/CD pipeline for automated testing and deployment.}
+  \resumeItem{Configured production environment with load balancing, reverse proxy, and custom domain management.}
+\end{resumeItemList}
+\vspace{6pt}
+
+\resumeProjectHeading
+{Machine Learning Data Analysis Tool}{Month 20XX - Month 20XX}
+\begin{resumeItemList}
+  \resumeItem{Developed a data analysis tool leveraging machine learning models for automated pattern recognition and classification.}
+  \resumeItem{Built an intuitive user interface enabling users to upload datasets and visualize analysis results with interactive controls.}
+  \resumeItem{Created an automated workflow that processes input data and generates comprehensive statistical reports and visualizations.}
+\end{resumeItemList}
+\vspace{6pt}
+
+\resumeProjectHeading
+{Operating System Development}{Month 20XX - Month 20XX}
+\begin{resumeItemList}
+  \resumeItem{Designed and implemented core components of an operating system including process scheduling and memory management.}
+  \resumeItem{Developed device drivers and implemented multi-threading functionality with synchronization primitives.}
+  \resumeItem{Built virtual memory protection system and system call interface with file system support.}
+  \resumeItem{Implemented inter-process communication mechanisms and command-line shell interface.}
+\end{resumeItemList}
+
+\end{document}
