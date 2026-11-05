@@ -1,4 +1,4 @@
-\documentclass[11pt, a4paper]{article}
+\documentclass[10pt, a4paper]{article}
 
 \usepackage{latexsym}
 \usepackage[empty]{fullpage}
@@ -22,8 +22,8 @@
 \addtolength{\oddsidemargin}{-0.5in}
 \addtolength{\evensidemargin}{-0.5in}
 \addtolength{\textwidth}{1.0in}
-\addtolength{\topmargin}{-0.5in}
-\addtolength{\textheight}{1.0in}
+\addtolength{\topmargin}{-0.7in}
+\addtolength{\textheight}{1.4in}
 
 \urlstyle{same}
 
@@ -33,8 +33,8 @@
 
 % Sections formatting
 \titleformat{\section}{
-  \vspace{-5pt}\raggedright\Large\bfseries
-}{}{0em}{}[\color{black}\titlerule \vspace{1pt}]
+  \vspace{-10pt}\raggedright\Large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-1pt}]
 
 % Custom commands for styling
 \newcommand{\resumeItem}[1]{
@@ -49,13 +49,13 @@
 
 \newcommand{\resumeProjectHeading}[2]{
   \textbf{\small#1} \hfill \small{#2}
-  \vspace{4pt}
+  \vspace{2pt}
 }
 
 \newcommand{\resumeSubheadingItalic}[4]{
-  \textbf{#1} \hfill \small{\textit{#2}} \\
+  \textbf{\large #1} \hfill \small{\textit{#2}} \\
   \textit{\small#3} \hfill \small{\textit{#4}}
-  \vspace{4pt}
+  \vspace{2pt}
 }
 
 \newlist{resumeItemList}{itemize}{1}
@@ -63,49 +63,69 @@
   leftmargin=0.15in,
   label=$\bullet$,
   parsep=0pt,
-  itemsep=1.5pt,
-  topsep=2pt,
+  itemsep=1pt,
+  topsep=1pt,
 }
 
 \begin{document}
+\fontsize{9.5pt}{11.5pt}\selectfont
 
 %----------HEADER----------
 \begin{center}
-  {\Large \textbf{Your Name}} \\ \vspace{2pt}
-  \small \href{mailto:your.email@example.com}{your.email@example.com} $|$ +1-XXX-XXX-XXXX $|$ \href{https://github.com/yourusername}{github.com/yourusername} $|$ City, State, ZIP
+  {\Large \textbf{Yifei Li}} \\ \vspace{2pt}
+  \small \href{mailto:yifei28@illinois.edu}{yifei28@illinois.edu} $|$ +1-626-940-7451 $|$ \href{https://github.com/yifei28}{github.com/yifei28} $|$ \href{https://www.linkedin.com/in/yifei-li-25535a326/}{\faLinkedinSquare\ yifei-li-25535a326}
 \end{center}
 
 %-----------EDUCATION-----------
 \section{Education}
-\vspace{-5pt}
+\vspace{-7pt}
 \begin{resumeItemList}
   \item \resumeSubheading
-  {Your University}{City, State}
-  {B.S. in Computer Science}{August 20XX - May 20XX}
-  \vspace{2pt}
-  \item \small{\textbf{GPA:} X.X/4.0}
-  \item \small{\textbf{Relevant Coursework:} Data Structures, Algorithms, Database Systems, Operating Systems, Computer Networks, Software Engineering.}
+  {University of Illinois Urbana-Champaign}{Champaign, IL}
+  {B.S. in Computer Engineering}{May 2023 - May 2027}
+  \vspace{1pt}
+  \item \small{\textbf{GPA:} 3.95/4.0}
+  \item \small{\textbf{Relevant Coursework:} Data Structures, Algorithms, Database Systems, Distributed Systems, Applied Parallel Programming, Communication Networks, Computer Systems \& Programming, LLM Reasoning for Engineering.}
 \end{resumeItemList}
 
 %-----------SKILLS-----------
 \section{Skills}
-\vspace{-5pt}
+\vspace{-7pt}
 \begin{resumeItemList}
-  \item \small{\textbf{Programming Languages:} Python, Java, JavaScript, C++, Go}
-  \item \small{\textbf{Technologies:} Docker, React, Node.js, SpringBoot, PostgreSQL, MongoDB, Kubernetes, Git, CI/CD}
-  \item \small{\textbf{Spoken Languages:} English}
+  \item \small{\textbf{Programming Languages:} Python, Java, JavaScript, C++, C, SQL}
+  \item \small{\textbf{Technologies:} Docker, Node.js, Spring Boot, FastAPI, MySQL, Redis, CUDA, PyTorch, GCP, Nginx, Linux, Git, CI/CD}
+  \item \small{\textbf{Spoken Languages:} English, Mandarin}
 \end{resumeItemList}
 
 %-----------EXPERIENCE-----------
 \section{Experience}
 \vspace{-5pt}
 \resumeSubheadingItalic
-{Company Name | Software Engineer Intern}{City, Country}
-{Month 20XX - Month 20XX}{}
+{Haima Cloud | Backend Engineer Intern}{Beijing, China}
+{June 2024 - August 2024}{}
 \begin{resumeItemList}
-  \resumeItem{Developed and maintained backend services using modern frameworks and technologies.}
-  \resumeItem{Collaborated with cross-functional teams to design and implement new features.}
-  \resumeItem{Optimized system performance through code analysis and targeted improvements.}
+  \resumeItem{Analyzed CPU flame graphs to identify performance bottlenecks, removed redundant logging calls and \textbf{reduced CPU usage by 16\%}.}
+  \resumeItem{Conducted weekly user data analysis using \textbf{Kibana} to monitor system performance metrics and identify optimization opportunities.}
+  \resumeItem{Collaborated with DevOps team on canary and full releases using \textbf{Jenkins} CI/CD pipelines and \textbf{Jira} for task tracking.}
+\end{resumeItemList}
+\vspace{4pt}
+
+\resumeSubheadingItalic
+{Research Assistant | Prof. Huan Zhang's Lab}{Champaign, IL}
+{January 2026 - Present}{}
+\begin{resumeItemList}
+  \resumeItem{Contributed to \textbf{auto\_LiRPA}, an open-source neural network verification library: implemented \textbf{BoundScatterElements} for \texttt{scatter\_reduce} with sound bound propagation (interval + CROWN) and extended \texttt{pow(x, y)} to support float exponents.}
+  \resumeItem{Implemented \textbf{PerturbationPolyhedra}, extending the library from $L_p$-norm (box) perturbations to \textbf{arbitrary polyhedral input sets} defined by linear constraints ($Cx + d \leq 0$); computes a minimal bounding box and propagates constraints for tighter bound estimation, with \textbf{branch-and-bound} support for sub-domain splitting.}
+\end{resumeItemList}
+\vspace{4pt}
+
+\resumeSubheadingItalic
+{Course Assistant | ECE408 Parallel Computing}{Champaign, IL}
+{January 2026 - Present}{}
+\begin{resumeItemList}
+  \resumeItem{Improved the CNN parallel computing MP by adding \textbf{kernel throughput metrics} to output and rewriting abstract problem descriptions into concrete, measurable optimization targets.}
+  \resumeItem{Built a \textbf{feature map visualization tool} that invokes students' GPU kernel implementations and generates an HTML report displaying intermediate outputs from all convolutional layers, enabling visual debugging of correctness.}
+  \resumeItem{Held weekly office hours to assist students with debugging and optimizing parallel computing assignments, and contributed to designing exam questions, proctoring, and grading.}
 \end{resumeItemList}
 
 %-----------PROJECTS-----------
@@ -113,31 +133,32 @@
 \vspace{-5pt}
 
 \resumeProjectHeading
-{Full-Stack Web Application}{Month 20XX - Month 20XX}
+{Security Guard Management System $|$ \normalfont{\small{Spring Boot, Java, Python, FastAPI, MySQL, Redis, Docker}}}{May 2025 - December 2025}
 \begin{resumeItemList}
-  \resumeItem{Designed and developed a full-stack web application with user authentication and database integration.}
-  \resumeItem{Built responsive frontend using modern JavaScript frameworks and implemented RESTful API backend.}
-  \resumeItem{Deployed application using Docker containers and set up CI/CD pipeline for automated testing and deployment.}
-  \resumeItem{Configured production environment with load balancing, reverse proxy, and custom domain management.}
+  \resumeItem{Built a backend system with \textbf{63 REST API endpoints} across 17 controllers, featuring unified pagination, multi-parameter filtering, and dual authentication (stateless JWT + WeChat OpenID).}
+  \resumeItem{Designed a relational schema with 13 JPA entities, optimistic locking for concurrent access control, and \textbf{25+ custom JPQL queries} with JOIN FETCH to eliminate N+1 problems.}
+  \resumeItem{Implemented a \textbf{Redis ZSET-based delay queue system} (3 queues) with 3-layer validation and distributed optimistic locking to guarantee exactly-once task execution.}
+  \resumeItem{Delivered \textbf{end-to-end} from schema design to deployment: orchestrated 4 microservices via \textbf{Docker Compose}, with 57 unit tests and GitHub Actions CI/CD pipeline for automated testing and deployment.}
+  \resumeItem{Built a separate \textbf{Python FastAPI} face recognition microservice using \textbf{VGGFace2} embeddings (512-dim) with configurable cosine similarity threshold, called from the Spring Boot service via multipart POST for guard check-in verification.}
 \end{resumeItemList}
-\vspace{6pt}
+\vspace{3pt}
 
 \resumeProjectHeading
-{Machine Learning Data Analysis Tool}{Month 20XX - Month 20XX}
+{RISC-V Operating System Kernel $|$ \normalfont{\small{C, RISC-V Assembly}}}{March 2025 - May 2025}
 \begin{resumeItemList}
-  \resumeItem{Developed a data analysis tool leveraging machine learning models for automated pattern recognition and classification.}
-  \resumeItem{Built an intuitive user interface enabling users to upload datasets and visualize analysis results with interactive controls.}
-  \resumeItem{Created an automated workflow that processes input data and generates comprehensive statistical reports and visualizations.}
+  \resumeItem{Implemented \textbf{Sv39 three-level page table} virtual memory with process address space isolation, fork-on-copy cloning, and user-mode page fault handling.}
+  \resumeItem{Built a preemptive thread scheduler with \textbf{locks and condition variables}, supporting process fork/exec/exit/wait and \textbf{16 system calls}.}
+  \resumeItem{Developed a \textbf{VirtIO block device driver} with interrupt-driven I/O and a KTFS file system featuring inode-based storage with direct, indirect, and doubly-indirect block mapping.}
+  \resumeItem{Implemented \textbf{pipe-based IPC} with a ring buffer, reader/writer synchronization, and a unified I/O abstraction layer supporting devices, files, and memory-backed streams.}
 \end{resumeItemList}
-\vspace{6pt}
+\vspace{3pt}
 
 \resumeProjectHeading
-{Operating System Development}{Month 20XX - Month 20XX}
+{GPU-Optimized CNN Inference $|$ \normalfont{\small{CUDA, C++}}}{January 2025 - May 2025}
 \begin{resumeItemList}
-  \resumeItem{Designed and implemented core components of an operating system including process scheduling and memory management.}
-  \resumeItem{Developed device drivers and implemented multi-threading functionality with synchronization primitives.}
-  \resumeItem{Built virtual memory protection system and system call interface with file system support.}
-  \resumeItem{Implemented inter-process communication mechanisms and command-line shell interface.}
+  \resumeItem{Implemented the convolution forward pass kernel for \textbf{LeNet-5} on GPU using \textbf{shared memory tiling}, im2col matrix unrolling, and fused convolution-GEMM computation.}
+  \resumeItem{Applied profile-driven optimization using \textbf{Nsight Systems/Compute}: accelerated GEMM with \textbf{TF32 Tensor Cores} (WMMA API), design tilling strategy, optimizing data reuse, and overlapped data transfers via \textbf{CUDA streams}, reducing inference time by \textbf{64\%}.}
+  \resumeItem{Evaluated \textbf{7 optimization strategies} across batch sizes of 100--10,000, identifying memory bandwidth as the dominant bottleneck for large inputs through compute/memory throughput profiling.}
 \end{resumeItemList}
 
 \end{document}

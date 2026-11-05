@@ -1,0 +1,168 @@
+\documentclass[10pt, a4paper]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+
+\setCJKmainfont{STSong}
+\setCJKsansfont{STHeiti}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\footskip}{3.60004pt}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.0in}
+\addtolength{\topmargin}{-0.6in}
+\addtolength{\textheight}{1.2in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Section formatting
+\titleformat{\section}{
+  \vspace{-1pt}\raggedright\Large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{2pt}]
+
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-1pt}}
+  }
+}
+\newcommand{\resumeSubheading}[4]{
+  \textbf{#1} \hfill \small{\textbf{#2}} \\
+  \textit{\small#3} \hfill \small{\textit{#4}}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+  \textbf{\small#1} \hfill \small{#2}
+  \vspace{2pt}
+}
+
+\newcommand{\resumeSubheadingItalic}[4]{
+  \textbf{\large #1} \hfill \small{#2} \\
+  \small{#3} \hfill \small{#4}
+  \vspace{2pt}
+}
+
+\newlist{resumeItemList}{itemize}{1}
+\setlist[resumeItemList]{
+  leftmargin=0.15in,
+  label=$\bullet$,
+  parsep=1pt,
+  itemsep=2pt,
+  topsep=2pt,
+}
+
+\begin{document}
+
+%----------HEADER----------
+\begin{center}
+  {\LARGE \textbf{李易非}} \\ \vspace{4pt}
+  \small \href{mailto:yifei28@illinois.edu}{yifei28@illinois.edu} $|$ +86 157-1120-2091 $|$ \href{https://github.com/yifei28}{github.com/yifei28} $|$ \href{https://www.linkedin.com/in/yifei-li-25535a326/}{LinkedIn: yifei-li-25535a326}
+\end{center}
+\vspace{2pt}
+
+%-----------EDUCATION-----------
+\section{教育经历}
+\vspace{-2pt}
+\begin{resumeItemList}
+  \item \resumeSubheading
+  {伊利诺伊大学厄巴纳-香槟分校 (UIUC)}{伊利诺伊州，香槟，美国}
+  {计算机工程 理学学士}{2023.05 -- 2027.05}
+  \vspace{2pt}
+  \item \small{\textbf{GPA:} 3.95/4.0}
+  \item \small{\textbf{核心课程：}数据结构、算法、数据库系统、分布式系统、并行编程、通信网络、计算机系统、LLM工程推理}
+\end{resumeItemList}
+
+%-----------SKILLS-----------
+\section{技能}
+\vspace{-2pt}
+\begin{resumeItemList}
+  \item \small{\textbf{编程语言：}Python, Java, JavaScript, C++, C, SQL}
+  \item \small{\textbf{技术栈：}Docker, Node.js, Spring Boot, FastAPI, MySQL, Redis, CUDA, PyTorch, GCP, Nginx, Linux, Git, CI/CD}
+  \item \small{\textbf{语言：}英语（流利）、普通话（母语）}
+\end{resumeItemList}
+
+%-----------EXPERIENCE-----------
+\section{工作经历}
+\vspace{-2pt}
+\resumeSubheadingItalic
+{海马云 $|$ 后端开发实习生}{北京，中国}
+{2024.06 -- 2024.08}{}
+\begin{resumeItemList}
+  \resumeItem{分析CPU火焰图定位性能瓶颈，移除冗余日志调用，\textbf{CPU使用率降低16\%}。}
+  \resumeItem{使用\textbf{Kibana}进行每周用户数据分析，监控系统性能指标，发现并推动优化方向。}
+  \resumeItem{配合DevOps团队使用\textbf{Jenkins} CI/CD流水线完成灰度与全量发布，使用\textbf{Jira}跟踪任务。}
+\end{resumeItemList}
+\vspace{12pt}
+
+\resumeSubheadingItalic
+{科研助理 $|$ 张欢教授实验室}{伊利诺伊州，香槟，美国}
+{2026.01 -- 至今}{}
+\begin{resumeItemList}
+  \resumeItem{参与\textbf{auto\_LiRPA}开源神经网络验证库：实现\textbf{BoundScatterElements}支持\texttt{scatter\_reduce}的可靠边界传播（区间分析 + CROWN），扩展\texttt{pow(x, y)}支持浮点指数。}
+  \resumeItem{实现\textbf{PerturbationPolyhedra}，将库从$L_p$范数（box）扰动扩展至\textbf{任意多面体输入集合}（线性约束$Cx + d \leq 0$定义）；计算最小外包盒并传播约束收紧边界估计，支持\textbf{分支定界}子域分割验证。}
+\end{resumeItemList}
+\vspace{12pt}
+
+\resumeSubheadingItalic
+{课程助教 $|$ ECE408 并行计算}{伊利诺伊州，香槟，美国}
+{2026.01 -- 至今}{}
+\begin{resumeItemList}
+  \resumeItem{改进CNN并行计算实验，添加\textbf{内核吞吐量指标}输出，将抽象描述改写为具体、可量化的优化目标。}
+  \resumeItem{开发\textbf{特征图可视化工具}，调用学生GPU内核并生成HTML报告，展示各卷积层中间输出，辅助调试。}
+  \resumeItem{每周答疑辅导学生调试并行计算作业，参与设计考试题目，监考判卷。}
+\end{resumeItemList}
+
+%-----------PROJECTS-----------
+\section{项目经历}
+\vspace{-2pt}
+
+\resumeProjectHeading
+{保安管理系统 $|$ \normalfont{\small{Spring Boot, Java, Python, FastAPI, MySQL, Redis, Docker}}}{2025.05 -- 2025.12}
+\begin{resumeItemList}
+  \resumeItem{构建后端系统，含\textbf{63个REST API}，跨17个控制器，支持统一分页、多参数过滤及双重认证（JWT + 微信OpenID）。}
+  \resumeItem{设计13个JPA实体的关系模式，乐观锁并发控制，\textbf{25+自定义JPQL}配合JOIN FETCH消除N+1问题。}
+  \resumeItem{实现\textbf{Redis ZSET延迟队列}（3队列），三层校验 + 分布式乐观锁，保证恰好一次执行。}
+  \resumeItem{\textbf{端到端交付}：\textbf{Docker Compose}编排4个微服务，57个单元测试，GitHub Actions CI/CD自动化部署。}
+  \resumeItem{独立开发\textbf{FastAPI人脸识别微服务}，\textbf{VGGFace2}嵌入（512维）+ 余弦相似度匹配，Spring Boot经multipart POST调用，用于签到验证。}
+\end{resumeItemList}
+\vspace{8pt}
+
+\resumeProjectHeading
+{RISC-V 操作系统内核 $|$ \normalfont{\small{C, RISC-V Assembly}}}{2025.03 -- 2025.05}
+\begin{resumeItemList}
+  \resumeItem{实现\textbf{Sv39三级页表}虚拟内存，支持进程地址空间隔离、写时复制和用户态缺页处理。}
+  \resumeItem{构建抢占式调度器，支持\textbf{锁与条件变量}，实现fork/exec/exit/wait及\textbf{16个系统调用}。}
+  \resumeItem{开发\textbf{VirtIO块设备驱动}（中断驱动I/O）及KTFS文件系统，支持直接/间接/双重间接块映射。}
+  \resumeItem{实现\textbf{管道IPC}（环形缓冲区 + 读写同步），构建统一I/O抽象层支持设备、文件与内存流。}
+\end{resumeItemList}
+\vspace{8pt}
+
+\resumeProjectHeading
+{GPU优化CNN推理 $|$ \normalfont{\small{CUDA, C++}}}{2025.01 -- 2025.05}
+\begin{resumeItemList}
+  \resumeItem{实现\textbf{LeNet-5} GPU卷积前向内核，采用\textbf{共享内存分块}、im2col展开及融合卷积-GEMM计算。}
+  \resumeItem{基于\textbf{Nsight Systems/Compute}性能分析，用\textbf{TF32 Tensor Core}加速GEMM，\textbf{CUDA流}重叠传输，推理\textbf{提速37\%}。}
+  \resumeItem{评估\textbf{7种优化策略}（批量100--10000），通过吞吐量分析识别出内存带宽为大规模输入主要瓶颈。}
+\end{resumeItemList}
+
+\end{document}
